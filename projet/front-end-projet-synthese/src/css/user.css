@@ -1,0 +1,46 @@
+.user_create_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .create_user_form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+        width: 70%;
+        max-width: 400px ;
+        border: 2px solid rebeccapurple;
+        padding: 10px;
+        
+        label{
+            margin: 10px ;
+            width: 100%;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+
+            span{
+                margin-bottom: 5px;
+            }
+
+            input{
+                width: 100%;
+                height: 30px;
+                border-radius: 50px;
+                border: 1px solid rebeccapurple;
+                padding: 0 10px;
+            }
+
+            input:focus{
+                outline: none;
+            }
+            
+        }
+    }
+}
+
+.user_show_page{
+    margin-bottom: 40px ;
+}
