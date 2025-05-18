@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class PinController extends Controller
 {
@@ -33,7 +34,21 @@ class PinController extends Controller
         }
         $pin->image_url && $pin->image_url = asset('storage/' . $pin->image_url);
 
-        $pin->liked_by_me = $pin->likes->contains('user_id', $request->user()->id);
+
+        // check if user is  a gest or authontified -----------------
+
+        $token = $request->bearerToken() ;
+        if($token){
+            $accessToken = PersonalAccessToken::findToken($token) ; 
+
+            if($accessToken && $accessToken->tokenable ){
+                $user = $accessToken->tokenable ;
+                $pin->liked_by_me = $pin->likes->contains('user_id', $user->id);
+            }
+        }
+
+        //------------------------------------------------------------
+
 
         return response()->json(['data' => $pin], 200);
     }
@@ -57,7 +72,7 @@ class PinController extends Controller
 
             $pin = Pin::create([
                 'title'      => $validation['title'],
-                'description' => $validation['description'],
+                'description' => $validation['description'] ?? null,
                 'is_public'  => $validation['is_public'],
                 'user_id'    => $request->user()->id,
                 'image_url'  => $path,

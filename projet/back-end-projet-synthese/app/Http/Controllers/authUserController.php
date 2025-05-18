@@ -44,7 +44,6 @@ class authUserController extends Controller
     {
         $token = $request->bearerToken() ; // Get the token from the Authorization header (without "Bearer " prefix)
         $accessToken = PersonalAccessToken::findToken($token) ; // Hash the token and find the matching token record in the database
-
         if (! $accessToken || !$accessToken->tokenable) { // If the token is invalid or the associated user (tokenable) does not exist
             return response()->json([
                 'message' => 'You are not logged in.'

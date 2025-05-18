@@ -21,7 +21,7 @@ class pinFactory extends Factory
             
             "title"         => $this->faker->sentence ,
             "description"   => $this->faker->paragraph,
-            "image_url"     => 'pin_imgs/default.png',
+            "image_url"     => 'pin_imgs/default.jpg',
             "is_public"     => $this->faker->boolean(),
             "user_id"       => User::factory(),
         ];

@@ -13,9 +13,9 @@ use App\Http\Middleware\RejectAuthenticatedSanctum;
 Route::post('user/logout', [AuthUserController::class, 'logout']);
 
 Route::apiResource('user', UserController::class)->only(['show']);
-Route::apiResource('pin', PinController::class)->only(['index']);
-Route::get('comment/{id}' , [CommentController::class , 'show'] ) ;
-Route::apiResource('comment', CommentController::class)->only(['index']);
+Route::apiResource('pin', PinController::class)->only(['index' , 'show']);
+Route::apiResource('comment', CommentController::class)->only(['index' , 'show']);
+// Route::get('comment/{id}' , [CommentController::class , 'show'] ) ;
 Route::apiResource('like', LikeController::class)->only(['index']);
 
 // Protected routes -----
@@ -23,8 +23,8 @@ Route::apiResource('like', LikeController::class)->only(['index']);
 Route::middleware(['auth:sanctum'])->group(function () {
     
     Route::apiResource('user', UserController::class)->except(['show' , 'store']);
-    Route::apiResource('pin', PinController::class)->except(['index']);
-    Route::apiResource('comment', CommentController::class)->except(['index']);
+    Route::apiResource('pin', PinController::class)->except(['index' , 'show']);
+    Route::apiResource('comment', CommentController::class)->except(['index' , 'show' ]);
     Route::apiResource('like', LikeController::class)->except(['index']);
 });
 

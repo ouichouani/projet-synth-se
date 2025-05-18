@@ -24,7 +24,6 @@ class userController extends Controller
         if ($user->profile_image) {
             $user->profile_image = asset('storage/' .$user->profile_image) ;
         }
-        newUserEvent::dispatch($user);
         return response()->json(['data' => $user], 200);        
     }
     
@@ -32,7 +31,7 @@ class userController extends Controller
     {
         //job to queue
 
-
+        
         try{
 
             $validation = $request->validate([
@@ -76,7 +75,7 @@ class userController extends Controller
 
             $validation = $request->validate([
                 'name'          => 'nullable|string|min:3|max:100',
-                'password'      => 'nullable|string|min:8|max:255',
+                'password'      => 'nullable|string|min:8|max:255|regex:/^(?!\s*$).+/',
                 'bio'           => 'nullable|string|min:3|max:255',
                 'profile_image' => 'nullable|file|max:2048|mimes:jpg,jpeg,png',
             ]);
