@@ -33,6 +33,7 @@ class PinController extends Controller
             return response()->json(['message' => 'Pin not found.'], 404);
         }
         $pin->image_url && $pin->image_url = asset('storage/' . $pin->image_url);
+        $pin->user->profile_image && $pin->user->profile_image = asset('storage/' . $pin->user->profile_image);
 
 
         // check if user is  a gest or authontified -----------------

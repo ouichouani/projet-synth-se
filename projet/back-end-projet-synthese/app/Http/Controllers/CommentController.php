@@ -13,15 +13,23 @@ class CommentController extends Controller
     public function show($id)
     {
         $comments = Comment::with('user')->where('pin_id', $id)->get(); //$id is pin id so we can gel all comments that belong to one pin
-        if(!$comments){return response()->json(['message' => 'no comments for this pin']) ; }
+        if (!$comments) {
+            return response()->json(['message' => 'no comments for this pin']);
+        }
+
 
         foreach ($comments as $comment) {
             if ($comment->user && $comment->user->profile_image) {
-                $comment->user->profile_image = asset('storage/' . $comment->user->profile_image);
+                $imagePath = $comment->user->profile_image;
+
+                // Avoid double asset() calls if the path is already a URL
+                if (!str_starts_with($imagePath, 'http')) {
+                    $comment->user->profile_image = asset('storage/' . $imagePath);
+                }
             }
         }
 
-        return response()->json(['message' => 'success fitching' , 'data' => $comments]);
+        return response()->json(['message' => 'success fitching', 'data' => $comments]);
     }
 
     public function store(Request $request)
