@@ -53,25 +53,26 @@ export default function PinShow() {
 
                 <div className="pin_container">
 
+                    
+                    <div className="pin_like">
+
+                        <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
+                        {/* <Share title="share" /> */}
+                        <More title="more" />
+                        <Download title="download" />
+
+                        {storedUser.id == pin?.user_id && (
+                            <>
+                                <Link to={`/pin/update/${pin?.user_id}`}>
+                                    <Update title="update" />
+                                </Link>
+                                <PinDelete />
+                            </>
+                        )}
+                    </div>
                     <img src={pin?.image_url || '/default.png'} className="Pin" />
-
+                    
                     <div className="pin_info">
-                        <div className="pin_like">
-
-                            <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
-                            <Share title="share" />
-                            <More title="more" />
-                            <Download title="more" />
-                            
-                            {storedUser.id == pin?.user_id && (
-                                <>
-                                    <Link to={`/pin/update/${pin?.user_id}`}>
-                                        <Update title="update" />
-                                    </Link>
-                                    <PinDelete />
-                                </>
-                            )}
-                        </div>
                         <div className="user_section" onClick={() => navigatTo(`/user/show/${pin?.user?.id}`)}>
                             <img src={pin?.user?.profile_image || '/default.png'} alt="" />
                             <h2>{pin?.user?.name || 'feetching ...'}</h2>

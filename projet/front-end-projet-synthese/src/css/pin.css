@@ -1,33 +1,26 @@
 /* index--------------- */
-body {
-    /* background-color: gray; */
-}
 
 .pin_index_container {
     display: flex;
     justify-content: center;
-
     width: 100%;
     height: 100%;
-
-    .pin_img_container {
-
-
-        width: calc(100% - 40px);
-        height: 100%;
-        columns: 3;
-        background-color: brown;
-
-        .Pin {
-            width: 100%;
-            border-radius: 20px;
-            margin: 5px 0;
-            object-fit: cover;
-            background-color: aqua;
-        }
-    }
+    padding-bottom: 40px;
 }
 
+.pin_img_container {
+    width: calc(100% - 40px);
+    height: 100%;
+    columns: 6;
+}
+
+.pin_img_container .Pin {
+    width: 100%;
+    border-radius: 20px;
+    margin: 5px 0;
+    object-fit: cover;
+    background-color: aqua;
+}
 
 
 /* chow------------ */
@@ -43,8 +36,8 @@ body {
 
     .pin_container {
         display: flex;
-        justify-content: center;
         flex-wrap: wrap;
+        justify-content: center;
         flex-direction: row-reverse;
         width: calc(100% - 40px);
 
@@ -52,11 +45,36 @@ body {
             width: fit-content;
             height: fit-content;
             border-radius: 20px;
-            object-fit: cover;
+            object-fit: contain;
+            background-color: #134B70;
 
-            max-width: 500px;
-            max-height: 300px;
+            max-width: 400px;
+            max-height: 400px;
             margin: 5px;
+        }
+
+        .pin_like {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+
+            border-radius: 20px;
+            /* background-color: white; */
+            /* background-color: rgb(106, 14, 14); */
+            margin: 5px;
+
+
+            /* position: absolute; */
+            /* top: 0;
+            right: 20px; */
+
+            border: 1px solid;
+            border-color: #134B70;
+            svg {
+                margin: 0 10px 5px;
+            }
         }
 
         .pin_info {
@@ -65,26 +83,13 @@ body {
             border-radius: 20px;
             color: white;
             flex: 1;
-            min-width: 300px;
+
+            /* min-width: 200px; */
+            width: fit-content;
+            max-width: 700px;
             padding: 35px 20px 20px;
 
-            .pin_like {
-                border-radius: 0px 0 20px 20px;
-                background-color: white;
 
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                position: absolute;
-                top: 0;
-                right: 20px;
-
-
-                svg {
-                    margin: 0 10px 5px;
-                }
-            }
 
             .pin_title {
                 display: inline-block;
@@ -102,6 +107,10 @@ body {
                 cursor: pointer;
                 color: #E2E2B6;
 
+                h2{
+                    flex-wrap: nowrap;
+                    width: max-content;
+                }
 
                 img {
                     margin: 0 10px;

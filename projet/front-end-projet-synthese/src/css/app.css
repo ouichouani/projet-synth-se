@@ -1,0 +1,82 @@
+/* 
+    THIS FILE WILL CONTAINE A UNITED STYLE IN ALL ELEMENTS OF THIS PROJECT
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* for scrollbar in app ---------------------*/
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #134B70;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #E2E2B6;
+    border-radius: 20000px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #021526;
+}
+
+/* for pin index page ---------------------*/
+/* for pin show page  ---------------------*/
+
+@media (max-width: 1500px) {
+    .pin_img_container {
+        columns: 5;
+    }
+
+    .pin_show_container .pin_container .pin_like {
+        display: none;
+    }
+
+    /* .pin_show_container .pin_container .Pin {} */
+}
+
+@media (max-width: 1200px) {
+    .pin_img_container {
+        columns: 4;
+    }
+
+    /* .pin_show_container .pin_container .Pin {} */
+}
+
+@media (max-width: 1000px) {
+    .pin_img_container {
+        columns: 3;
+    }
+
+    .pin_show_container .pin_container .Pin {
+        max-width: 500px;
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 700px) {
+    .pin_img_container {
+        columns: 2;
+    }
+
+    .pin_show_container .pin_container .Pin {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+}
+
+@media (max-width: 100px) {
+    .pin_img_container {
+        columns: 1;
+    }
+
+}

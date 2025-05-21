@@ -1,9 +1,7 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    /* background-color: gray; */
-}
 
+/* 
+    THIS FILE WILL CONTAINE STYLE OF ALL COMPONENTS IN COMPONENT/PARTIES FOLDER
+*/
 
 header {
     height: 110px;
@@ -96,7 +94,7 @@ footer {
     justify-content: space-between;
     align-items: end;
     width: 100%;
-
+    
     svg {
         fill: #E2E2B6;
     }
