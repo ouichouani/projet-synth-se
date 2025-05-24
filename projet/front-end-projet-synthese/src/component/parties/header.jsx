@@ -1,12 +1,12 @@
+import { useContext } from 'react';
+import { UserContext } from '../../provider/userContext';
 import { Link } from 'react-router-dom';
-import '../../css/parties.css';
+
 import { ReactComponent as PinLogo } from '../../svg/img.svg';
 import { ReactComponent as AccountLogo } from '../../svg/account.svg';
 import { ReactComponent as SettingLogo } from '../../svg/setting.svg';
 import { ReactComponent as NotificationLogo } from '../../svg/notifications.svg';
 import { ReactComponent as Search } from '../../svg/search.svg';
-import { useContext } from 'react';
-import { UserContext } from '../../provider/userContext';
 
 export default function Header() {
     const { storedUser } = useContext(UserContext);

@@ -1,11 +1,12 @@
 import axios from "axios"
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Pin from "./pin";
+
+import styles from '../../css/pin/pin_index.module.css'
 
 
 export default function PinIndex() {
 
-    const navigatTo = useNavigate();
     const [pins, setPins] = useState([]);
 
     useEffect(() => {
@@ -23,12 +24,13 @@ export default function PinIndex() {
     }, []);
 
     return (
-        <div className="pin_index_container">
-            <div className="pin_img_container">
+        <div className={styles.pin_index_container}>
+            <div className={styles.pin_img_container}>
 
-            {pins.map((pin, index) => (
-                <img key={index} src={pin.image_url} className="Pin" onClick={()=>{navigatTo(`/pin/show/${pin.id}`)}} />
-            ))}
+                {pins.map((pin, index) => (
+                    <Pin key={index} image_path={pin.image_url} path={`/pin/show/${pin.id}`} />
+                ))}
+
             </div>
         </div>
     )

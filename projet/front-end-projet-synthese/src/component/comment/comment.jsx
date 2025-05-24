@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../svg/arrow.svg";
 import { useRef } from 'react';
 
-import '../../css/comment.css';
 export default function Comment() {
 
     const { id } = useParams();

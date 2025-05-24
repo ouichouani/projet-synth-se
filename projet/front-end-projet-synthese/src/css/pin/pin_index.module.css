@@ -1,0 +1,36 @@
+.pin_index_container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.pin_img_container {
+    column-count: 1;
+    column-gap: 1rem;
+    transition: all 0.5s ease;
+}
+
+
+@media (min-width: 600px) {
+    .pin_img_container {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 900px) {
+    .pin_img_container {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 1200px) {
+    .pin_img_container {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1440px) {
+    .pin_img_container {
+        column-count: 6;
+    }
+}
