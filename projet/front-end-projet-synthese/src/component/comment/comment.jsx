@@ -1,4 +1,6 @@
+
 import axios from "axios";
+import styles from "../../css/comment/comment.module.css" ;
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../svg/arrow.svg";
@@ -65,18 +67,17 @@ export default function Comment() {
     };
 
     return (
-        <div className="comments">
-            <div className="comments_title">
+        <div className={styles.comments}>
+            <div className={styles.comments_title}>
 
                 <h2>comments</h2>
-                
                 <Arrow onClick={handleClick} width={"20px"} height={'30px'} />
 
             </div>
-            <div className="comment_container" ref={commentContainerRef}>
+            <div className={styles.comment_container} ref={commentContainerRef}>
                 {comments?.map((comment) => (
                     <div key={comment.id}>
-                        <div className="comment_user_section" onClick={() => navigatTo(`/user/show/${comment.user.id}`)}>
+                        <div className={styles.comment_user_section} onClick={() => navigatTo(`/user/show/${comment.user.id}`)}>
                             <img src={comment.user.profile_image || '/default.png'} alt="" />
                             <span>{comment.user.name || 'feetching ...'}</span>
                         </div>

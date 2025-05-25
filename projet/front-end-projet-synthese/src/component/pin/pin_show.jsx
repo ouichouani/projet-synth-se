@@ -1,9 +1,21 @@
 import axios from "axios";
+import styles from '../../css/pin/pin_show.module.css' ;
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { UserContext } from "../../provider/userContext";
 
-import styles from '../../css/pin/pin_show.module.css'
+// -------------------
+import PinDelete from "./pin_delete";
+import Comment from "../comment/comment";
+
+import { ReactComponent as Like } from '../../svg/heart.svg'
+import { ReactComponent as Update } from '../../svg/update.svg'
+import { ReactComponent as Download } from '../../svg/download-photo.svg'
+// -------------------
+
 export default function PinShow() {
+
+    const { storedUser } = useContext(UserContext); //added
 
 
     const navigatTo = useNavigate();
@@ -38,33 +50,49 @@ export default function PinShow() {
 
     return (
         <>
-            <div className = {styles.pin_show_container}>
+            <div className={styles.pin_show_container}>
 
-                <div className = {styles.pin_container}>
+                <div className={styles.pin_container}>
 
-                    <div className = {styles.Pin}>
-                        <img src={pin?.image_url || '/default.png'}  />
+                    <div className= {styles.pin_reaction}>
+
+                        <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
+                        <Download title="download" />
+
+                        {storedUser.id == pin?.user_id && (
+                            <>
+                                <Link to={`/pin/update/${pin?.user_id}`}>
+                                    <Update title="update" />
+                                </Link>
+                                <PinDelete />
+                            </>
+                        )}
+
                     </div>
-                    
-                    <div className = {styles.pin_info}>
 
-                        <div className = {styles.user_section} onClick={() => navigatTo(`/user/show/${pin?.user?.id}`)}>
-                            <img src={pin?.user?.profile_image || '/default.png'}  />
+                    <div className={styles.Pin}>
+                        <img src={pin?.image_url || '/default.png'} />
+                    </div>
+
+                    <div className={styles.pin_info}>
+
+                        <div className={styles.user_section} onClick={() => navigatTo(`/user/show/${pin?.user?.id}`)}>
+                            <img src={pin?.user?.profile_image || '/default.png'} />
                             <h2>{pin?.user?.name || 'feetching ...'}</h2>
                         </div>
 
                         <span> {pin?.title}</span>
 
-                        <p>{pin?.description ? pin?.description : 'no description' }</p>
-                        
+                        <p>{pin?.description ? pin?.description : 'no description'}</p>
+
                     </div>
                 </div>
 
+
+
+            <Comment />
             </div>
 
         </>
     )
-
-
-
 }

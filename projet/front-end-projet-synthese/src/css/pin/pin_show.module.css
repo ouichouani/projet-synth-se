@@ -34,10 +34,16 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.386);
     backdrop-filter: blur(10px);
 
-    margin-bottom: 100px;
+    margin: 40px 0 35px ;
 
 }
 
+.pin_reaction {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: -50px;
+    right: 0;
+}
 
 .Pin img {
     border-radius: 10px;
