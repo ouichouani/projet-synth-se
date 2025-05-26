@@ -45,9 +45,6 @@ export default function PinShow() {
     }, [id, token]);
 
 
-
-    console.log(pin)
-
     return (
         <>
             <div className={styles.pin_show_container}>
@@ -56,12 +53,12 @@ export default function PinShow() {
 
                     <div className= {styles.pin_reaction}>
 
-                        <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
                         <Download title="download" />
 
-                        {storedUser.id == pin?.user_id && (
+                        {storedUser?.id == pin?.user_id && (
                             <>
-                                <Link to={`/pin/update/${pin?.user_id}`}>
+                            <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
+                                <Link to={`/pin/update/${pin?.id}`} state={{pin_via_location: pin}}>
                                     <Update title="update" />
                                 </Link>
                                 <PinDelete />
