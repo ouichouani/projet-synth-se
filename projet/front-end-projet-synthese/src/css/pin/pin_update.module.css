@@ -11,7 +11,6 @@
     width: 100%;
     height: calc(100vh - 110px);
     display: flex;
-    align-items: center;
     justify-content: center;
 
     background-image: url('../../../public/pin.png');
@@ -25,7 +24,10 @@
     width: 95%;
     padding-top: 80px;
     padding-left: 20px;
+    margin-top: 50px;
+
     max-width: 800px;
+    height: fit-content;
     border-radius: 10px;
 
     position: relative;
@@ -84,7 +86,7 @@
     border: none;
     padding: 10px;
     color: #021526;
-    background-color: #02152653;
+    background-color: #0215263d;
 }
 
 .update_pin_form textarea {

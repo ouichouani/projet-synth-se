@@ -1,0 +1,60 @@
+
+.pin_delete_container{
+    position: absolute;
+    left: -500px ;
+    top: 30%;
+
+    max-width: 500px;
+    width: 90%;
+    padding: 10px 0;
+    z-index: 9001;
+
+    border: 2px solid red;
+    border-radius: 10px;
+    background-color: rgb(255, 127, 127);
+
+    transition: all .5s 0s ease;
+    
+}
+
+.pin_delete_over_layer{
+
+    position: fixed;
+    width: 100%;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+
+    background-color: transparent;
+    z-index: -9;
+    transition: all .25s 0s ease;
+
+}
+
+
+.pin_delete_container p {
+    margin-top: 20px;
+    font-size: 20px;
+    color: rgb(119, 6, 6);
+    font-weight: 900;
+    text-align: center;
+}
+
+.pin_delete_container div {
+    margin-top: 50px;
+    color: rgb(119, 6, 6);
+    font-weight: 900;
+    text-align: center;
+}
+
+.pin_delete_container div button {
+    font-size: 15px;
+    margin-inline: 40px;
+    background-color: transparent;
+
+    color: rgb(119, 6, 6);
+    font-weight: 900;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}

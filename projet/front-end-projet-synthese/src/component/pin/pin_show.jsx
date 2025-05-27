@@ -1,5 +1,5 @@
 import axios from "axios";
-import styles from '../../css/pin/pin_show.module.css' ;
+import styles from '../../css/pin/pin_show.module.css';
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { UserContext } from "../../provider/userContext";
@@ -11,6 +11,8 @@ import Comment from "../comment/comment";
 import { ReactComponent as Like } from '../../svg/heart.svg'
 import { ReactComponent as Update } from '../../svg/update.svg'
 import { ReactComponent as Download } from '../../svg/download-photo.svg'
+import { ReactComponent as Trash } from '../../svg/trash.svg'
+
 // -------------------
 
 export default function PinShow() {
@@ -45,23 +47,34 @@ export default function PinShow() {
     }, [id, token]);
 
 
+    const handleDelete = () => {
+        const pin_delete_container = document.getElementById("pin_delete_container");
+        const pin_delete_over_layer = document.getElementById("pin_delete_over_layer");
+        Object.assign(pin_delete_container.style, { left: "50%", transform: "translate(-50%)" })
+        Object.assign(pin_delete_over_layer.style, { backgroundColor: 'rgba(0, 0, 0, 0.4)', zIndex: "9000" })
+
+    }
+
     return (
         <>
             <div className={styles.pin_show_container}>
 
                 <div className={styles.pin_container}>
 
-                    <div className= {styles.pin_reaction}>
+                    <div className={styles.pin_reaction}>
 
                         <Download title="download" />
 
+                        {storedUser?.id && (
+                            <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
+                        )}
+
                         {storedUser?.id == pin?.user_id && (
                             <>
-                            <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
-                                <Link to={`/pin/update/${pin?.id}`} state={{pin_via_location: pin}}>
+                                <Link to={`/pin/update/${pin?.id}`} state={{ pin_via_location: pin }}>
                                     <Update title="update" />
                                 </Link>
-                                <PinDelete />
+                                <Trash onClick={handleDelete} />
                             </>
                         )}
 
@@ -87,7 +100,8 @@ export default function PinShow() {
 
 
 
-            <Comment />
+                <Comment />
+                <PinDelete />
             </div>
 
         </>

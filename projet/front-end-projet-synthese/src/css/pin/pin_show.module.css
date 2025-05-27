@@ -45,6 +45,11 @@
     right: 0;
 }
 
+
+.pin_reaction svg {
+    cursor: pointer;
+}
+
 .Pin img {
     border-radius: 10px;
     display: block;
