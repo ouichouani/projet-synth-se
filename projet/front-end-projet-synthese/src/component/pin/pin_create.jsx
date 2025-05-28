@@ -1,15 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useState , useContext} from "react";
+import { useNavigate } from "react-router-dom";
+
+import styles from '../../css/pin/pin_create.module.css';
+import { ReactComponent as UploadImage } from '../../svg/upload-file.svg'
+import { UserContext } from "../../provider/userContext";
 
 
 
-export default function PinCreate(){
+
+export default function PinCreate() {
     const token = localStorage.getItem('token');
-    const [pin, setpin] = useState({ title : '', img: null, description: '' , is_public : true});
+    const [pin, setpin] = useState({ title: '', img: null, description: '', is_public: true });
     const [message, setMessage] = useState('...');
     const [errors, setErrors] = useState();
     const navigatTo = useNavigate();
+    const {storedUser: user} = useContext(UserContext) ;
 
     const handleSubmit = async (e) => {
 
@@ -21,7 +27,7 @@ export default function PinCreate(){
             pin.title && formData.append("title", pin.title.trim());
             pin.description && formData.append("description", pin.description.trim());
             pin.img && formData.append("image_url", pin.img);
-            formData.append("is_public", pin.is_public ? 1 : 0 ); //is this line correct , this fild's type is boolean in laravel??
+            formData.append("is_public", pin.is_public ? 1 : 0); //is this line correct , this fild's type is boolean in laravel??
 
             const response = await axios.post('http://127.0.0.1:8000/api/pin',
                 formData,
@@ -46,8 +52,8 @@ export default function PinCreate(){
     }
 
     const handleChange = (e) => {
-        if(e.target.name === "is_public"){
-            setpin({ ...pin, is_public : e.target.checked });
+        if (e.target.name === "is_public") {
+            setpin({ ...pin, is_public: e.target.checked });
         }
         else if (e.target.name === "img") {
             setpin({ ...pin, img: e.target.files[0] });
@@ -57,36 +63,45 @@ export default function PinCreate(){
     };
 
     return (
-        <div className="user_create_page">
+        <div className={styles.pin_create_page}>
 
-            <form onSubmit={handleSubmit} className="create_user_form" encType="multipart/form-data" >
-                <h1>create</h1>
+            <form onSubmit={handleSubmit} className={styles.create_pin_form} encType="multipart/form-data" >
 
-                <h2>{message}</h2>
+                <div className={styles.user_section} onClick={() => navigatTo(`/user/show/${user?.id}`)}>
+                    <img src={user?.profile_image || '/default.png'} />
+                    <h2>{user?.name || 'feetching ...'}</h2>
+                </div>
+
                 <label htmlFor="pin_title">
-                    <span>title</span>
+                    <span>title :</span>
                     <input value={pin.title} type="text" name="title" id="pin_title" onChange={handleChange} required />
-                    {errors?.title && errors.title}
+                    <p>{errors?.title && errors.title}</p>
                 </label>
 
                 <label htmlFor="pin_description">
-                    <span>description</span>
+                    <span>description :</span>
                     <textarea value={pin.description} name="description" id="pin_description" onChange={handleChange} ></textarea>
-                    {errors?.description && errors.description}
+                    <p>{errors?.description && errors.description}</p>
                 </label>
 
-                <label htmlFor="pin_img">
-                    <span>image</span>
-                    <input type="file" name="img" id="pin_img" onChange={handleChange} required />
-                    {errors?.image_url && errors.image_url}
-                </label>
+                <div className={styles.upload_img_container}>
+                    <label htmlFor="pin_img">
+                        <UploadImage title="uplouad image" />
+                    </label>
+                    <input type="file" name="img" id="pin_img" onChange={handleChange} />
+                    {/* <p>{errors?.image_url && errors.image_url}</p> */}
+                </div>
 
-                <label htmlFor="pin_is_public">
-                    <span>is_public</span>
-                    <input type="checkbox" name="is_public" id="pin_is_public" checked={pin.is_public} onChange={handleChange}   />
+                <label htmlFor="pin_is_public" className={styles.checkbox_label}>
+                    <span>is_public :</span>
+                    <input type="checkbox" name="is_public" id="pin_is_public" checked={pin.is_public} onChange={handleChange} />
                 </label>
+                
+            
+                <button type="submit" className={styles.submit_Button}>
+                    <p> create </p>
+                </button>
 
-                <button type="submit"> create</button>
             </form>
         </div>
     )
