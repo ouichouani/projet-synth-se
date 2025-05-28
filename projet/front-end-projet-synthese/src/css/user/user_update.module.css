@@ -1,0 +1,165 @@
+
+.user_update_page {
+    background-color: gray;
+    width: 100%;
+    height: calc(100vh - 110px);
+    display: flex;
+    justify-content: center;
+
+    background-image: url('../../../public/pin.png');
+    background-size: cover;
+
+
+}
+
+
+.update_user_form {
+    width: 95%;
+    padding: 20px 0;
+    padding-left: 20px;
+    margin-top: 50px;
+
+    max-width: 800px;
+    height: fit-content;
+    border-radius: 10px;
+
+    position: relative;
+    overflow: hidden;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.386);
+    backdrop-filter: blur(10px);
+}
+
+
+/* user update form style ------------------------ */
+
+
+.update_user_form label {
+    display: inline-block;
+    width: calc(100% - 230px);
+
+    margin: 10px 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.update_user_form span {
+    margin-bottom: 10px;
+    color: #021526;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.update_user_form input,
+.update_user_form textarea {
+    border-radius: 10px;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 10px;
+    color: #021526;
+    background-color: #0215263d;
+}
+
+.update_user_form textarea {
+    height: 100px;
+    resize: none;
+}
+
+.update_user_form input:focus,
+.update_user_form textarea:focus {
+    outline: 1px solid #134B70;
+    background-color: #134b703e;
+
+}
+
+
+
+.update_user_form p {
+    display: inline-block;
+    height: 20px;
+    color: red;
+}
+
+.update_user_form .submit_Button {
+
+    position: absolute;
+    bottom: -20px;
+    right: -50px;
+    outline: none;
+    border: none;
+
+    border-radius: 20px;
+    transform: rotate(-40deg);
+
+    height: 200px;
+    width: 200px;
+    z-index: 2;
+    border-left: 3px solid #134B70;
+    background-color: #508C9B;
+    cursor: pointer;
+
+    transition: all .25s 0s ease;
+
+    p {
+        color: #021526;
+        font-weight: 700;
+        font-size: 20px;
+        transform: rotate(40deg);
+
+        display: inline-block;
+        cursor: pointer;
+
+        position: absolute;
+        top: 70px;
+        left: 20px;
+
+        transition: all .5s 0s ease;
+    }
+}
+
+.update_user_form .submit_Button:hover {
+
+    background-color: #021526;
+    border-left: 3px solid #E2E2B6;
+
+    p {
+        color: #E2E2B6;
+    }
+}
+
+
+/* upload img style ---------------------------- */
+
+.upload_img_container {
+    height: 350px;
+    width: 350px;
+    min-width: 200px;
+    background-color: #021526;
+    position: absolute;
+    top: 0%;
+    right: -233px;
+    z-index: 3;
+    border-radius: 20px;
+    border-left: 3px solid #E2E2B6;
+
+    display: flex;
+
+    transform: rotate(-45deg);
+    box-shadow: -2px 0px 10px 3px rgba(0, 0, 0, 0.33);
+}
+
+.upload_img_container svg {
+    height: 100px;
+    width: 100px;
+    transform: rotate(45deg);
+    margin: 30px 30px;
+    cursor: pointer;
+}
+
+.upload_img_container input {
+    display: none;
+}

@@ -2,21 +2,23 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../provider/userContext";
+import styles from '../../css/user/user_update.module.css';
+import { ReactComponent as UploadImage } from '../../svg/upload-file.svg'
+
 
 
 export default function UserUpdate() {
 
     const token = localStorage.getItem('token');
+
     const location = useLocation();
     const userData = location.state;
-    const {setStoredUserfunction} = useContext(UserContext) ;
     
-    const [user, setUser] = useState({...userData});
+    const { setStoredUserfunction } = useContext(UserContext);
 
-    const [message, setMessage] = useState('...');
+    const [user, setUser] = useState({ ...userData });
     const [errors, setErrors] = useState();
     const navigatTo = useNavigate();
-    // const { id } = useParams();
 
     const handleSubmit = async (e) => {
 
@@ -26,13 +28,17 @@ export default function UserUpdate() {
         try {
 
             const formData = new FormData();
+            formData.append("_method", 'PUT');
+
             if (user?.password) {
                 user?.password.trim() && formData.append("password", user?.password);
             }
-            formData.append("_method", 'PUT');
-            
-            user?.name && formData.append("name", user?.name.trim());
-            user?.bio && formData.append("bio", user?.bio);
+            if (user?.name && user?.name != userData.name) {
+                user?.name && formData.append("name", user?.name.trim());
+            }
+            if (user?.bio && user?.bio != userData.bio) {
+                user?.bio && formData.append("bio", user?.bio.trim());
+            }
             user?.img && formData.append("profile_image", user?.img);
 
             const response = await axios.post(`http://127.0.0.1:8000/api/user/${user?.id}`,
@@ -45,17 +51,12 @@ export default function UserUpdate() {
                 }
             );
 
-            setMessage(response.data.message); // delete this later
-                console.log(response.data.data) ;
-                setStoredUserfunction(response.data.data) ;
-
-            // navigatTo(`/user/show/${response.data.data.id}`)
+            setStoredUserfunction(response.data.data);
+            navigatTo(`/user/show/${response.data.data.id}`)
 
         } catch (error) {
             if (error.response && error.response.data && error.response.data.errors) {
                 setErrors(error.response.data.errors);
-            } else {
-                setMessage(error.response.data.message || "An error occurred.");
             }
         }
 
@@ -70,17 +71,15 @@ export default function UserUpdate() {
     };
 
     return (
-        <div className="user_create_page">
+        <div className={styles.user_update_page}>
 
-            <form onSubmit={handleSubmit} className="create_user_form" encType="multipart/form-data" >
-                <h1>update</h1>
+            <form onSubmit={handleSubmit} className={styles.update_user_form} encType="multipart/form-data" >
 
-                <h2>{message}</h2>
 
                 <label htmlFor="update_name">
                     <span>name</span>
                     <input value={user?.name} type="text" name="name" id="update_name" onChange={handleChange} />
-                    {errors?.name && errors.name}
+                    <p>{errors?.name && errors.name}</p>
 
                 </label>
 
@@ -88,27 +87,32 @@ export default function UserUpdate() {
                 <label htmlFor="update_password">
                     <span>password</span>
                     <input value={user?.password} type="password" name="password" id="update_password" onChange={handleChange} />
-                    {errors?.password && errors.password}
-
+                    <p>{errors?.password && errors.password}</p>
                 </label>
 
 
                 <label htmlFor="update_bio">
                     <span>bio</span>
-                    <input value={user?.bio} type="text" name="bio" id="update_bio" onChange={handleChange} />
-                    {errors?.bio && errors.bio}
+                    <textarea value={user?.bio} name="bio" id="update_bio" onChange={handleChange} ></textarea>
+                    <p>{errors?.bio && errors.bio}</p>
                 </label>
 
 
-                <label htmlFor="update_img">
-                    <span>profail image</span>
-                    <input type="file" name="img" id="update_img" onChange={handleChange} />
-                    {errors?.profile_image && errors.profile_image}
-                </label>
+                <div className={styles.upload_img_container}>
+                    <label htmlFor="pin_img">
+                        <UploadImage title="uplouad image" />
+                    </label>
+                    <input type="file" name="img" id="pin_img" onChange={handleChange} />
+                </div>
+                {/* {errors?.profile_image && errors.profile_image} */}
 
 
 
-                <button type="submit"> update</button>
+
+                <button type="submit" className={styles.submit_Button}>
+                    <p> update </p>
+                </button>
+
             </form>
         </div>
     )
