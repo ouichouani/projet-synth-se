@@ -1,16 +1,22 @@
 import axios from "axios";
-import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../../provider/userContext";
 
 
 export default function UserUpdate() {
 
     const token = localStorage.getItem('token');
-    const [user, setUser] = useState({ email: '', password: '', name: '', img: null , bio: '' });
+    const location = useLocation();
+    const userData = location.state;
+    const {setStoredUserfunction} = useContext(UserContext) ;
+    
+    const [user, setUser] = useState({...userData});
+
     const [message, setMessage] = useState('...');
     const [errors, setErrors] = useState();
     const navigatTo = useNavigate();
-    const {id} = useParams() ;
+    // const { id } = useParams();
 
     const handleSubmit = async (e) => {
 
@@ -20,28 +26,30 @@ export default function UserUpdate() {
         try {
 
             const formData = new FormData();
-            // check first if password empty or not
-            if(user.password){ 
-                user.password.trim() && formData.append("password", user.password);
+            if (user?.password) {
+                user?.password.trim() && formData.append("password", user?.password);
             }
-
             formData.append("_method", 'PUT');
-            user.name && formData.append("name", user.name.trim());
-            user.bio && formData.append("bio", user.bio);
-            user.img && formData.append("profile_image", user.img);
+            
+            user?.name && formData.append("name", user?.name.trim());
+            user?.bio && formData.append("bio", user?.bio);
+            user?.img && formData.append("profile_image", user?.img);
 
-            const response = await axios.post(`http://127.0.0.1:8000/api/user/${id}`,
+            const response = await axios.post(`http://127.0.0.1:8000/api/user/${user?.id}`,
                 formData,
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`, // if token valid , user must logout first
+                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
                     }
                 }
             );
 
             setMessage(response.data.message); // delete this later
-            navigatTo(`/user/show/${response.data.data.id}`)
+                console.log(response.data.data) ;
+                setStoredUserfunction(response.data.data) ;
+
+            // navigatTo(`/user/show/${response.data.data.id}`)
 
         } catch (error) {
             if (error.response && error.response.data && error.response.data.errors) {
@@ -71,7 +79,7 @@ export default function UserUpdate() {
 
                 <label htmlFor="update_name">
                     <span>name</span>
-                    <input value={user.name} type="text" name="name" id="update_name" onChange={handleChange} />
+                    <input value={user?.name} type="text" name="name" id="update_name" onChange={handleChange} />
                     {errors?.name && errors.name}
 
                 </label>
@@ -79,7 +87,7 @@ export default function UserUpdate() {
 
                 <label htmlFor="update_password">
                     <span>password</span>
-                    <input value={user.password} type="password" name="password" id="update_password" onChange={handleChange} />
+                    <input value={user?.password} type="password" name="password" id="update_password" onChange={handleChange} />
                     {errors?.password && errors.password}
 
                 </label>
@@ -87,7 +95,7 @@ export default function UserUpdate() {
 
                 <label htmlFor="update_bio">
                     <span>bio</span>
-                    <input value={user.bio} type="text" name="bio" id="update_bio" onChange={handleChange} />
+                    <input value={user?.bio} type="text" name="bio" id="update_bio" onChange={handleChange} />
                     {errors?.bio && errors.bio}
                 </label>
 

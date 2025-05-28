@@ -1,50 +1,56 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
-
+import { UserContext } from "../../provider/userContext";
+import styles from '../../css/user/user_show.module.css'
+import axios from "axios";
 export default function UserShow() {
-    const { id } = useParams()
-    const [user, setUser] = useState();
-    const [message, setMessage] = useState()
 
+    const [user, setUser] = useState();
+    const { storedUser } = useContext(UserContext);
+    const { id } = useParams()
 
     useEffect(() => {
 
+        if (id != storedUser?.id) {
+            const get_user = async () => {
 
-        const getUser = async () => {
-            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/user/${id}`)
+                setUser(response.data.data)
+            } ;
 
-                const response = await axios.get(`http://127.0.0.1:8000/api/user/${id}`);
-                setUser(response.data.data);
+            get_user() ;
 
-            } catch (error) {
-                console.log(error.message);
-                setMessage(error.response.data.message)
-            }
+        } else {
+            setUser(storedUser)
         }
-
-        getUser();
 
     }, [id]);
 
-    console.log(user)
 
     return (
-        <div className="user_show_page">
-            <img src={user?.profile_image} alt="" className="user_sow_img" />
+        <div className={styles.user_show_page}>
 
-            <div className="user_show_info">
-                <p>{user?.email}</p>
-                <p>{user?.name}</p>
-                <p>{user?.bio}</p>
-                <p>{user?.profile_image}</p>
 
-                <div className="user_show_links">
-                    <Link to={'/user/update'} >update</Link>
-                    <Link to={'/user/logout'} >logout</Link>
+            <div className={styles.user_show_container} >
+                <img src={user?.profile_image} alt="" />
+                <div className={styles.user_info}>
+
+                    <h1>{user?.name}</h1>
+                    <h2>{user?.email}</h2>
+                    <p>{user?.bio}</p>
+
                 </div>
+
+                {id == storedUser?.id && (
+                    <div className={styles.user_log_container}>
+                        <Link to={`/user/update/${user?.id}` } state={user} >update</Link>
+                        <Link to={'/user/logout'} >logout</Link>
+                    </div>
+                )}
+
             </div>
-            
+
         </div>
     )
 }

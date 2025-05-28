@@ -25,7 +25,6 @@ import { useContext } from "react";
 export default function Router() {
 
     const { storedUser } = useContext(UserContext);
-    console.log(storedUser);
 
     return (
         <BrowserRouter>
