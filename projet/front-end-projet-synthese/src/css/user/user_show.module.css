@@ -77,10 +77,14 @@
     backdrop-filter: blur(10px);
 
 
-    a {
+    a , button {
+        border: none;
+        outline: none;
+        background-color: transparent;
         font-weight: 600;
         text-decoration: none;
         color: #021526;
+        cursor: pointer;
 
     }
 }
