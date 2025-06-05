@@ -1,0 +1,123 @@
+.log_in_page {
+    background-color: gray;
+    width: 100%;
+    height: calc(100vh - 110px);
+    display: flex;
+    justify-content: center;
+
+    background-image: url('../../../public/pin.png');
+    background-size: cover;
+
+
+}
+
+.log_in_form {
+
+    padding: 40px 10px 40px 10px;
+    margin-top: 50px;
+
+    width: 95%;
+    max-width: 500px;
+    height: fit-content;
+    border-radius: 10px;
+
+    position: relative;
+    overflow: hidden;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.386);
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* pin update form style ------------------------ */
+
+
+.log_in_form label {
+    display: inline-block;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
+
+.log_in_form span {
+    margin-bottom: 10px;
+    color: #021526;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.log_in_form input {
+    border-radius: 10px;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 10px;
+    color: #021526;
+    background-color: #0215261c;
+}
+
+.log_in_form input:focus {
+    outline: 1px solid #134B70;
+    background-color: #134b703e;
+}
+
+.log_in_form p {
+    display: inline-block;
+    height: 20px;
+    color: red;
+    font-size: 13px;
+}
+
+.log_in_form h2 {
+    margin-bottom: 20px;
+    color: #021526;
+}
+
+.log_in_form .submit_Button {
+
+    outline: none;
+    border: none;
+
+    width: 100%;
+    padding: 10px 0;
+    margin: 20px 0;
+    border-radius: 10px;
+
+    background-color: #508C9B;
+    cursor: pointer;
+    transition: all .25s 0s ease;
+
+    p {
+        color: #021526;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+    }
+}
+
+.log_in_form .submit_Button:hover {
+
+    background-color: #021526;
+
+    p {
+        color: #E2E2B6;
+    }
+}
+
+.log_in_form a {
+
+    position: absolute;
+    bottom: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #021526;
+    cursor: pointer;
+
+}

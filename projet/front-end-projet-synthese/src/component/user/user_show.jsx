@@ -53,8 +53,7 @@ export default function UserShow() {
                 {id == storedUser?.id && (
                     <div className={styles.user_log_container}>
                         <Link to={`/user/update/${user?.id}`} state={user} >update</Link>
-                        {/* <Link to={'/user/logout'} >logout</Link> */}
-                        <button onClick={handleLogout}>logout</button>
+                        <p onClick={handleLogout}> logout</p>
                     </div>
                 )}
 
