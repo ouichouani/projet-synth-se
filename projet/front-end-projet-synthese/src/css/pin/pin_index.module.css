@@ -5,7 +5,7 @@
 }
 
 .pin_img_container {
-    column-count: 1;
+    column-count: 2;
     column-gap: 1rem;
     transition: all 0.5s ease;
 }

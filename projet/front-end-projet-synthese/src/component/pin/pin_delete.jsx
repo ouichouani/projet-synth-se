@@ -28,7 +28,8 @@ export default function PinDelete() {
             );
 
             console.log(response.data.message);
-            navigatTo(`/pin`)
+            navigatTo(`/pin`)  ;
+            // navigatTo(-1) ;
 
         } catch (error) {
             if (error.response && error.response.data && error.response.data.errors) {
