@@ -22,6 +22,15 @@ class PinController extends Controller
         return response()->json(['data' => $pins]);
     }
 
+    public function userPins($user_id)
+    {
+        $pins = Pin::where('user_id' , $user_id )->with(['comments', 'user'])->get();
+        foreach ($pins as $pin) {
+            $pin->image_url && $pin->image_url = asset('storage/' . $pin->image_url);
+        }
+        return response()->json(['data' => $pins]);
+    }
+
     public function show(Request $request, $id)
     {
 

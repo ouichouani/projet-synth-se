@@ -14,6 +14,7 @@ Route::post('user/logout', [AuthUserController::class, 'logout']);
 
 Route::apiResource('user', UserController::class)->only(['show']);
 Route::apiResource('pin', PinController::class)->only(['index' , 'show']);
+Route::get('pin/user/{user_id}', [PinController::class , 'userPins']) ; 
 Route::apiResource('comment', CommentController::class)->only(['index' , 'show']);
 // Route::get('comment/{id}' , [CommentController::class , 'show'] ) ;
 Route::apiResource('like', LikeController::class)->only(['index']);

@@ -47,6 +47,16 @@ class CommentController extends Controller
                 'content' => $validation['content'],
             ]);
 
+            if ($comment->user && $comment->user->profile_image) {
+                $imagePath = $comment->user->profile_image;
+
+                // Avoid double asset() calls if the path is already a URL
+                if (!str_starts_with($imagePath, 'http')) {
+                    $comment->user->profile_image = asset('storage/' . $imagePath);
+                }
+            }
+
+
             newCommentEvent::dispatch($comment);
             return response()->json(['message' => 'comment created', 'data' => $comment]);
         } catch (ValidationException $e) {
@@ -58,6 +68,7 @@ class CommentController extends Controller
     public function destroy(Request $request, $id)
     {
         $comment = Comment::find($id);
+
         if (!$comment) {
             return response()->json(['message' => 'comment not found']);
         }
