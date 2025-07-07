@@ -7,8 +7,9 @@ import { UserContext } from "../../provider/userContext";
 // -------------------
 import PinDelete from "./pin_delete";
 import Comment from "../comment/comment";
+import Like from "../like/like";
 
-import { ReactComponent as Like } from '../../svg/heart.svg'
+// import { ReactComponent as Like } from '../../svg/heart.svg'
 import { ReactComponent as Update } from '../../svg/update.svg'
 import { ReactComponent as Download } from '../../svg/download-photo.svg'
 import { ReactComponent as Trash } from '../../svg/trash.svg'
@@ -22,12 +23,30 @@ export default function PinShow() {
 
     const navigatTo = useNavigate();
     const [pin, setPin] = useState(null);
+    const [like , setLike] = useState(false);
     const { id } = useParams();
     const token = '';
 
     useEffect(() => {
+
+        const getLike = async (pin) => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/like/check', {
+                    user_id: storedUser?.id,
+                    pin_id: pin?.id
+                })
+                
+                // setPin((prevState)=>({...prevState , like :response.data.data }))
+                setLike(response.data.data) ;
+
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+
         const fetch_pin = async () => {
             try {
+
                 const response = await axios.get(`http://127.0.0.1:8000/api/pin/${id}`, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -37,10 +56,18 @@ export default function PinShow() {
 
                 });
                 setPin(response.data.data);
+                if (response.data.data) {
+                    getLike(response.data.data);
+                }
+
+
             } catch (error) {
                 console.log('error : ', error.response.data.message)
             };
+
         }
+
+
 
         fetch_pin();
 
@@ -66,7 +93,7 @@ export default function PinShow() {
                         <Download title="download" />
 
                         {storedUser?.id && (
-                            <Like fill={pin?.liked_by_me ? '#134B70' : 'white'} />
+                            <Like pin={pin && pin} like = {like && like} />
                         )}
 
                         {storedUser?.id == pin?.user_id && (

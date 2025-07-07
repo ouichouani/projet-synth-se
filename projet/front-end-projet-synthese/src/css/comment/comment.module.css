@@ -37,8 +37,8 @@
             margin-bottom: 10px;
         }
 
-        svg {
-            transition: all .5s 0s ease;
+        p {
+            font-weight: 700;
         }
 
     }
@@ -47,13 +47,15 @@
         display: flex;
         align-items: center;
         width: fit-content;
+        /* margin: 10px 10px; */
         margin: 10px 10px;
+        margin-top: 0;
         cursor: pointer;
     }
 
     .comment_user_section img {
-        width: 25px;
-        height: 25px;
+        width: 35px;
+        height: 35px;
         background-color: #021526;
         border-radius: 5000px;
         object-fit: cover;
@@ -64,33 +66,45 @@
         margin: 0 10px;
         color: #021526;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 17px;
 
     }
 
     .comment_container {
         width: 100%;
-        margin: auto;
-        padding-inline: 20px;
         max-height: 400px;
         overflow-y: auto;
+
+                transition: all .4s ease;
+
+
     }
 
     .comment_container p {
         margin: 0 30px 30px;
         word-break: break-all;
         color: #021526;
+
+        width: fit-content;
     }
 
     .comment_container>div {
+        position: relative;
+        padding-top: 10px;
         border-bottom: 3px solid white;
     }
+
     .comment_container>div:hover {
         border-color: #134B70;
+        background-color: #0215261c ;
+
+        .trash_icon{
+            display: block;
+        }
     }
 
     .comment_container div:last-child {
-        border: none;
+        border-color :transparent;
     }
 
     .comments label {
@@ -103,7 +117,6 @@
         position: absolute;
         right: 10px;
         top: 0;
-        /* transform: translateY(25%); */
         cursor: pointer;
     }
 
@@ -128,14 +141,16 @@
         background-color: #021526;
     }
 
+    .trash_icon{
+        display: none;
+        height: 25px;
+        position: absolute;
+        right: 0;
+        top: calc(50%);
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
 
-    /* style of svg */
-
-
-/* If you use CSS modules */
-/* .add_comment_icon .plus-vertical {
-  stroke: red;
-  transform: rotate(20deg);
-  transform-origin: center;
-  transition: transform 0.3s ease;
-} */
+    .trash_icon:hover{
+        fill: #021526;
+    }
